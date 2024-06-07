@@ -1,9 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { Request } from 'express';
+import { CreateCatDto } from './dto/create-cat.dto';
 
 @Injectable()
 export class CatsService {
-  getCats(req: Request): string {
-    return `this is your create Cat!${req}`;
+  getCats(id: number): string {
+    return `this is your create Cat!${id}`;
+  }
+
+  createCat(createCat: CreateCatDto) {
+    console.log(createCat);
+    return createCat;
   }
 }

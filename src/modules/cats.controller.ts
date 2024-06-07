@@ -1,20 +1,30 @@
 import {
+  Body,
   Controller,
   Get,
+  Param,
+  Post,
+  // ParseIntPipe,
   // HttpException,
   // HttpStatus,
   Req,
+  // UsePipes,
 } from '@nestjs/common';
 import { Request } from 'express';
 import { ApiQuery, ApiResponse } from '@nestjs/swagger';
 import { CatsService } from './cats.service';
 import { Cats, CatsRole } from './classes/cats';
+import { ParseIntPipe } from 'src/common/pipes/parseInt.pipe';
+// import { ValidationPipe } from 'src/common/pipes/validation.pipe';
+import { CreateCatDto } from './dto/create-cat-class-example.dto';
+// import { CreateCatDto, createCatSchema } from './dto/create-cat.dto';
+// import { ZodValidationPipe } from 'src/common/pipes/zods/zodvalidation.pipe';
 
 @Controller('cats')
 export class CatsController {
   constructor(private readonly catsService: CatsService) {}
 
-  @Get()
+  @Get(':id')
   @ApiQuery({ name: 'name', required: true })
   @ApiQuery({ name: 'role', enum: CatsRole })
   @ApiResponse({
@@ -22,7 +32,10 @@ export class CatsController {
     description: 'get CatData success',
     type: Cats,
   })
-  findAll(@Req() request: Request): string {
+  findAll(
+    @Req() request: Request,
+    @Param('id', ParseIntPipe) id: number,
+  ): string {
     // throw new HttpException(
     //   {
     //     status: HttpStatus.BAD_REQUEST,
@@ -31,6 +44,11 @@ export class CatsController {
     //   },
     //   HttpStatus.BAD_REQUEST,
     // );
-    return this.catsService.getCats(request);
+    return this.catsService.getCats(id);
+  }
+
+  @Post('create')
+  async create(@Body() createCatDto: CreateCatDto) {
+    this.catsService.createCat(createCatDto);
   }
 }
