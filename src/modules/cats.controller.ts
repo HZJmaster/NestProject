@@ -8,8 +8,11 @@ import {
   // HttpException,
   // HttpStatus,
   Req,
+  UseGuards,
   // UsePipes,
 } from '@nestjs/common';
+import { RolesGuard } from '../common/guards/roles.guard';
+import { Roles } from '../common/decorators/roles.decorator';
 import { Request } from 'express';
 import { ApiQuery, ApiResponse } from '@nestjs/swagger';
 import { CatsService } from './cats.service';
@@ -21,10 +24,12 @@ import { CreateCatDto } from './dto/create-cat-class-example.dto';
 // import { ZodValidationPipe } from 'src/common/pipes/zods/zodvalidation.pipe';
 
 @Controller('cats')
+@UseGuards(RolesGuard)
 export class CatsController {
   constructor(private readonly catsService: CatsService) {}
 
   @Get(':id')
+  @Roles(['admin'])
   @ApiQuery({ name: 'name', required: true })
   @ApiQuery({ name: 'role', enum: CatsRole })
   @ApiResponse({
