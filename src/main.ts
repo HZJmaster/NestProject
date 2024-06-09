@@ -7,7 +7,6 @@ import { ValidationPipe } from './common/pipes/validation.pipe';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
   // 全局过滤器
   app.useGlobalFilters(new HttpExceptionFilter());
   // 全局范围管道
