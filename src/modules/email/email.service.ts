@@ -8,7 +8,7 @@ export class EmailService {
   sendEmail() {
     this.mailerService.sendMail({
       to: '3555474128@qq.com',
-      from: '846163332@qq.com',
+      // from: '846163332@qq.com',
       subject: 'I want to send this email for you!',
       template: 'welcome',
     });
