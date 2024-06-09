@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CatsModule } from './modules/cats.module';
 import { MailerModule } from '@nest-modules/mailer';
+import { AuthModule } from './modules/auth/auth.module';
 import { StatusMonitorModule } from 'nest-status-monitor';
 import statusConfig from './config/statusMonitor';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
@@ -20,6 +21,7 @@ import { ConfigModule, ConfigService } from 'nestjs-config';
       inject: [ConfigService],
     }),
     CatsModule,
+    AuthModule,
     EmailModule,
   ],
   controllers: [AppController],
