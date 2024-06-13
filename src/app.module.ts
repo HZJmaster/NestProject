@@ -5,12 +5,15 @@ import { AppService } from './app.service';
 import { CatsModule } from './modules/cats.module';
 import { MailerModule } from '@nest-modules/mailer';
 import { AuthModule } from './modules/auth/auth.module';
+// import { ScheduleModule } from '@nestjs/schedule';
+// import { TasksModule } from './tasks/tasks.module';
 import { ResearchModule } from './modules/research/research.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { StatusMonitorModule } from 'nest-status-monitor';
 import statusConfig from './config/statusMonitor';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import { EmailModule } from './modules/email/email.module';
+import { UploadModule } from './modules/upload/upload.module';
 import { ConfigModule, ConfigService } from 'nestjs-config';
 
 @Module({
@@ -28,6 +31,9 @@ import { ConfigModule, ConfigService } from 'nestjs-config';
     CatsModule,
     ResearchModule,
     AuthModule,
+    UploadModule,
+    // ScheduleModule.forRoot(),
+    // TasksModule,
     EmailModule,
   ],
   controllers: [AppController],
